@@ -1,0 +1,11 @@
+1. No. It's not type-correct in Hindley Milner. Function f can't accept both
+Bool and Int. 
+
+2. No. It's not type-correct in Hindley Milner. Function x can't accept both 
+its own type and Bool. 
+
+3. Yes. It is type-correct in Hindley Milner. Functions m and n have type Int 
+-> Bool, and function h has type Int -> (Bool, Bool). 
+
+4. No. It's not type-correct in Simple types. Functions m and n are defined in 
+terms of each other, but mutual recursion is not allowed. 
