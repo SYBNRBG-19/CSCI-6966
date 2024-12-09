@@ -2,7 +2,7 @@
 
 ## Overview
 
-`x86 Vulnerability Checker` is a Haskell-based tool for analyzing 32-bit x86 binaries for common vulnerabilities, such as format string vulnerabilities and stack integrity issues. It parses binary files, generates an Abstract Syntax Tree (AST), and scans for vulnerabilities, producing a report with detailed findings.
+`x86 Vulnerability Checker` is a Haskell-based tool for analyzing 32-bit x86 binaries for common vulnerabilities, such as format string vulnerabilities and stack integrity issues. It parses binary files, generates a Control Flow Graph (CFG), and scans for vulnerabilities, producing a report with detailed findings.
 
 This project uses external tools to disassemble binaries and then processes the output for vulnerability detection. It is built with Haskell and leverages Cabal for dependency management and builds.
 
@@ -86,14 +86,14 @@ This will output a report detailing any detected vulnerabilities in the specifie
 ### 1. BinaryParser
 Handles parsing the binary file using external tools (e.g., `objdump`) and extracts instructions.
 
-### 2. ASTGenerator
-Converts the list of instructions into an Abstract Syntax Tree (AST), which represents the binary's structure.
+### 2. CFGGenerator
+Converts the list of instructions into a Control Flow Graph (CFG), which is a basic building block of program analysis.
 
 ### 3. VulnerabilityScanner
 Analyzes the AST for known vulnerability patterns. Uses various checker modules to detect specific issues.
 
-### 4. FormatStringChecker
-Identifies format string vulnerabilities by examining certain function calls like `printf`.
+### 4. Checkers
+Identifies three types of vulnerabilities by examining certain function calls like `printf`.
 
 ### 5. ReportGenerator
 Produces a report summarizing the vulnerabilities found during the scan.
