@@ -1,3 +1,0 @@
-Lianting Wang's repo (preferred): https://github.com/Lianting-Wang/x86-vulnerability-checker/
-
-My repo: https://github.com/SYBNRBG-19/CSCI-6966/tree/master/Project/code
