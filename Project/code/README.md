@@ -43,8 +43,8 @@ Ensure that you have **GHC** and **Cabal** installed. You can install them from 
 1. Clone this repository:
 
    ```bash
-   git clone https://github.com/Lianting-Wang/x86-vulnerability-checker.git
-   cd x86-vulnerability-checker
+   git clone https://github.com/SYBNRBG-19/CSCI-6966.git 6966
+   cd 6966/Project/code
    ```
 
 2. Initialize and build the project:
