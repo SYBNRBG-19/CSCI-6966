@@ -9,7 +9,7 @@ This project uses external tools to disassemble binaries and then processes the 
 ## Features
 
 - **Binary Parsing**: Parses 32-bit x86 binaries to extract instructions.
-- **AST Generation**: Constructs an Abstract Syntax Tree (AST) from disassembled code.
+- **CFG Generation**: Constructs a Control Flow Graph (CFG) from disassembled code.
 - **Vulnerability Detection**: Analyzes binaries for common vulnerabilities.
 - **Detailed Reporting**: Outputs a report listing identified vulnerabilities.
 
