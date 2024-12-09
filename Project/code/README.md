@@ -18,12 +18,17 @@ This project uses external tools to disassemble binaries and then processes the 
 ```
 x86-vulnerability-checker/
 │
-├── src/
+├── app/
 │   ├── Main.hs                # Entry point for the executable
+|
+├── src/
+│   ├── Types.hs               # defines vulnerability types
 │   ├── BinaryParser.hs        # Parses binaries and extracts instructions
-│   ├── ASTGenerator.hs        # Generates AST from instructions
-│   ├── VulnerabilityScanner.hs # Scans AST for vulnerabilities
+│   ├── CFGGenerator.hs        # Generates CFG from instructions
+│   ├── VulnerabilityScanner.hs # Scans CFG for vulnerabilities
 │   ├── FormatStringChecker.hs  # Detects format string vulnerabilities
+│   ├── StackIntegrityChecker.hs  # Detects stack integrity vulnerabilities
+│   ├── BufferOverflowChecker.hs  # Detects buffer overflow vulnerabilities
 │   └── ReportGenerator.hs     # Generates vulnerability report
 │
 ├── test/
