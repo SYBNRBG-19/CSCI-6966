@@ -71,7 +71,7 @@ cabal run x86-vulnerability-checker -- path/to/binary
 Example:
 
 ```bash
-cabal run x86-vulnerability-checker -- ./test-binaries/example.bin
+cabal run x86-vulnerability-checker -- ./test-binaries/simple.bin
 ```
 
 This will output a report detailing any detected vulnerabilities in the specified binary.
