@@ -22,7 +22,7 @@ x86-vulnerability-checker/
 │   ├── Main.hs                # Entry point for the executable
 |
 ├── src/
-│   ├── Types.hs               # defines vulnerability types
+│   ├── Types.hs               # defines data structure for vulnerability
 │   ├── BinaryParser.hs        # Parses binaries and extracts instructions
 │   ├── CFGGenerator.hs        # Generates CFG from instructions
 │   ├── VulnerabilityScanner.hs # Scans CFG for vulnerabilities
