@@ -5,6 +5,7 @@ import BinaryParser (parseBinary)
 import CFGGenerator (generateCFG)
 import VulnerabilityScanner (scanForVulnerabilities)
 import ReportGenerator (generateReport)
+import CFGPrinter (printCFG, writeCFGToFile)
 
 main :: IO ()
 main = do
@@ -13,6 +14,7 @@ main = do
     [binaryPath] -> do
       instructions <- parseBinary binaryPath
       let cfg = generateCFG instructions
+      printCFG cfg
       let vulnerabilities = scanForVulnerabilities cfg
       generateReport vulnerabilities
     _ -> putStrLn "Usage: x86-vulnerability-checker <binary-file>"
