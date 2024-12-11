@@ -33,6 +33,7 @@ x86-vulnerability-checker/
 │   └── ReportGenerator.hs     # Generates vulnerability report
 │
 ├── test/
+│   ├── <module>Spec.hs        # Unit test for a module
 │   └── Spec.hs                # Basic test cases for each module
 │
 ├── x86-vulnerability-checker.cabal # Project configuration and dependencies
