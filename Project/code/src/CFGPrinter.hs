@@ -1,59 +1,29 @@
-{-# LANGUAGE OverloadedStrings #-}
+module CFGPrinter (printCFG) where
 
-module CFGPrinter (printCFG, writeCFGToFile) where
-
-import System.IO (withFile, IOMode(..), hPutStrLn)
+import BinaryParser (Instruction(..))
 import CFGGenerator (CFG(..), BasicBlock(..))
 import Data.Map (Map)
 import qualified Data.Map as Map
 
--- | Print the CFG to standard output
 printCFG :: CFG -> IO ()
-printCFG cfg = do
-    putStrLn "===== CONTROL FLOW GRAPH ====="
-    putStrLn "Blocks:"
-    Map.foldrWithKey printBlock (return ()) (cfgBlocks cfg)
-    putStrLn "\nEdges:"
-    Map.foldrWithKey printEdges (return ()) (cfgEdges cfg)
-    putStrLn "===== END OF CFG ====="
-
+printCFG (CFG blocks edges) = do
+  putStrLn "Blocks:"
+  mapM_ printBlock (Map.elems blocks)
+  putStrLn "\nEdges:"
+  mapM_ printEdge (Map.toList edges)
+  putStrLn ""
   where
-    printBlock :: String -> BasicBlock -> IO () -> IO ()
-    printBlock label bb acc = do
+    printBlock :: BasicBlock -> IO ()
+    printBlock (BasicBlock label instrs) = do
       putStrLn $ "Block Label: " ++ label
       putStrLn "Instructions:"
-      mapM_ (printInstr) (bbInstructions bb)
+      mapM_ printInstr instrs
       putStrLn ""
-      acc
 
-    printInstr :: Show i => i -> IO ()
-    printInstr instr = putStrLn $ "  " ++ show instr
+    printInstr :: Instruction -> IO ()
+    printInstr instr = do
+      putStrLn $ "  Instruction {address = \"" ++ address instr ++ "\", bytes = \"" ++ bytes instr ++ "\", mnemonic = \"" ++ mnemonic instr ++ "\", operands = \"" ++ operands instr ++ "\"}"
 
-    printEdges :: String -> [String] -> IO () -> IO ()
-    printEdges from to acc = do
-      putStrLn $ from ++ " -> " ++ show to
-      acc
-
--- | Write the CFG to a specified file
-writeCFGToFile :: FilePath -> CFG -> IO ()
-writeCFGToFile filePath cfg = withFile filePath WriteMode $ \h -> do
-    hPutStrLn h "===== CONTROL FLOW GRAPH ====="
-    hPutStrLn h "Blocks:"
-    Map.foldrWithKey (printBlock h) (return ()) (cfgBlocks cfg)
-    hPutStrLn h "\nEdges:"
-    Map.foldrWithKey (printEdges h) (return ()) (cfgEdges cfg)
-    hPutStrLn h "===== END OF CFG ====="
-
-  where
-    printBlock h label bb acc = do
-      hPutStrLn h $ "Block Label: " ++ label
-      hPutStrLn h "Instructions:"
-      mapM_ (printInstr h) (bbInstructions bb)
-      hPutStrLn h ""
-      acc
-
-    printInstr h instr = hPutStrLn h $ "  " ++ show instr
-
-    printEdges h from to acc = do
-      hPutStrLn h $ from ++ " -> " ++ show to
-      acc
+    printEdge :: (String, [String]) -> IO ()
+    printEdge (from, tos) = do
+      putStrLn $ from ++ " -> " ++ show tos

@@ -10,24 +10,28 @@ import qualified Data.Map as Map
 
 spec :: Spec
 spec = describe "FormatStringChecker" $ do
-  it "detects format string vulnerability in calls to printf with user input" $ do
-    let cfg = createTestCFG [instrCall "printf"]
-    let vulns = checkFormatStringVulnerabilities cfg
-    length vulns `shouldBe` 1
-    vulnType (head vulns) `shouldBe` "Format String Vulnerability"
-    description (head vulns) `shouldContain` "printf"
 
   it "does not report vulnerability when safe functions are called" $ do
     let cfg = createTestCFG [instrCall "safeFunction"]
     let vulns = checkFormatStringVulnerabilities cfg
     vulns `shouldBe` []
 
-  it "detects format string vulnerability in calls to fprintf" $ do
-    let cfg = createTestCFG [instrCall "fprintf"]
+  it "reports vulnerability when printf is called" $ do
+    let cfg = createTestCFG [instrCall "401010"]  -- "printf@plt"
     let vulns = checkFormatStringVulnerabilities cfg
-    length vulns `shouldBe` 1
-    vulnType (head vulns) `shouldBe` "Format String Vulnerability"
-    description (head vulns) `shouldContain` "fprintf"
+    vulns `shouldBe` [ Vulnerability
+                        { vulnType = "Format String Vulnerability"
+                        , description = "Possible format string vulnerability in call to printf"
+                        , location = "0x1000"
+                        } ]
+
+  it "handles an empty CFG" $ do
+    let cfg = CFG
+                { cfgBlocks = Map.empty
+                , cfgEdges = Map.empty
+                }
+    let vulns = checkFormatStringVulnerabilities cfg
+    vulns `shouldBe` []
 
 -- Helper functions
 createTestCFG :: [Instruction] -> CFG

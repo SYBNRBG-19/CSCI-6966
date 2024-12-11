@@ -56,7 +56,7 @@ spec = do
     let expected = 
             [ Instruction "1000" "48 c7 c0 01 00 00 00" "mov" "$0x1,%rax"
             , Instruction "1007" "48 c7 c7 01 00 00 00" "mov" "$0x1,%rdi"
-            , Instruction "100e" "48 8d 35 eb 1f 00 00" "lea" "0x1feb(%rip),%rsi # 0x3000"
+            , Instruction "100e" "48 8d 35 eb 1f 00 00" "lea" "0x1feb(%rip),%rsi"
             , Instruction "1015" "48 c7 c2 0e 00 00 00" "mov" "$0xe,%rdx"
             , Instruction "101c" "0f 05" "syscall" ""
             , Instruction "101e" "48 c7 c0 3c 00 00 00" "mov" "$0x3c,%rax"

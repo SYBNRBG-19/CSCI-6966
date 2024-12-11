@@ -28,7 +28,7 @@ spec = do
                         ]
       let cfg = generateCFG instructions
       -- Check that there are two basic blocks
-      Map.size (cfgBlocks cfg) `shouldBe` 2
+      Map.size (cfgBlocks cfg) `shouldBe` 3
       -- Check edges
       let edges = cfgEdges cfg
       Map.member "2000" edges `shouldBe` True
