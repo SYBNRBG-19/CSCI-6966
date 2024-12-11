@@ -16,9 +16,16 @@ spec = do
 
   describe "parseObjdumpOutput" $ do
     it "parses a valid objdump output line into an Instruction" $ do
-      let line = "400080: 48 89 e5        mov    %rsp,%rbp"
+      let line = unlines
+            [ "Disassembly of section .text:"
+            , "400080: 48 89 e5        mov    %rsp,%rbp"
+            ]
       let expected = Instruction "400080" "48 89 e5" "mov" "%rsp,%rbp"
       parseObjdumpOutput line `shouldBe` [expected]
+    
+    it "returns an empty list for a line that doesn't contain any instruction" $ do
+      let line = "Disassembly of section .text:"
+      parseObjdumpOutput line `shouldBe` []
 
     it "returns an empty list for a line that doesn't represent an instruction" $ do
       let line = "This is not an instruction line"
@@ -26,7 +33,8 @@ spec = do
 
     it "parses multiple lines of objdump output" $ do
       let output = unlines
-            [ "400080: 48 89 e5           mov    %rsp,%rbp"
+            [ "Disassembly of section .text:"
+            , "400080: 48 89 e5           mov    %rsp,%rbp"
             , "400083: 89 7d fc           mov    %edi,-0x4(%rbp)"
             , "400086: 48 83 ec 10        sub    $0x10,%rsp"
             ]
@@ -40,7 +48,8 @@ spec = do
     it "parses instructions from an objdump file" $ do
       -- Simulating parseBinary as if it reads output from objdump
       let mockOutput = unlines
-            [ "400080: 48 89 e5            mov    %rsp,%rbp"
+            [ "Disassembly of section .text:"
+            , "400080: 48 89 e5            mov    %rsp,%rbp"
             , "400083: 89 7d fc            mov    %edi,-0x4(%rbp)"
             ]
       let expected = 

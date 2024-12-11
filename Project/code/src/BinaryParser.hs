@@ -3,7 +3,7 @@ module BinaryParser (parseBinary, Instruction(..), parseObjdumpOutput, isHexDigi
 import System.Process (readProcess)
 import Data.Maybe (mapMaybe)
 import Data.Char (toLower)
-import Data.List (isSuffixOf, findIndex)
+import Data.List (isSuffixOf, findIndex, isPrefixOf)
 import Numeric ()
 import Debug.Trace (trace)  -- Added import for trace
 
@@ -45,8 +45,27 @@ parseBinary path = do
 
 -- Function to parse the objdump output into a list of Instructions
 parseObjdumpOutput :: String -> [Instruction]
-parseObjdumpOutput output = mapMaybe parseLine (lines output)
+parseObjdumpOutput output = mapMaybe parseLine textSectionLines
   where
+    allLines = lines output
+
+    -- Extract lines within the .text section
+    textSectionLines = extractTextSection allLines
+
+    -- Helper function to extract lines after "Disassembly of section .text:"
+    extractTextSection :: [String] -> [String]
+    extractTextSection [] = []
+    extractTextSection (x:xs)
+      | "Disassembly of section .text:" `isPrefixOf` x = extractInstructions xs
+      | otherwise = extractTextSection xs
+
+    -- Extract instructions until the next "Disassembly of section" or end of file
+    extractInstructions :: [String] -> [String]
+    extractInstructions [] = []
+    extractInstructions (y:ys)
+      | "Disassembly of section " `isPrefixOf` y = []
+      | otherwise = y : extractInstructions ys
+
     parseLine :: String -> Maybe Instruction
     parseLine line =
       case words line of
@@ -92,15 +111,6 @@ parseObjdumpOutput output = mapMaybe parseLine (lines output)
     trim :: String -> String
     trim = f . f
        where f = reverse . dropWhile (`elem` [' ', '\t'])
-
--- Function to parse operand addresses (e.g., "0x2004") into Integer
--- parseOperandAddress :: String -> Maybe Integer
--- parseOperandAddress s =
---     let s' = takeWhile (\c -> isHexDigit c) s -- Extract characters that are hex digits
---         s'' = if "0x" `isPrefixOf` s' then drop 2 s' else s'
---     in case readHex s'' of
---         [(n, "")] -> Just n
---         _         -> Nothing
 
 -- Helper function to check if a character is a hexadecimal digit
 isHexDigit :: Char -> Bool
