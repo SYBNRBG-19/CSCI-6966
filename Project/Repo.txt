@@ -1,3 +1,0 @@
-https://github.com/SYBNRBG-19/CSCI-6966/tree/master/Project/code
-
-This repo contains all assignments for this course. All source code, slides and .md file are in the Project folder. 
