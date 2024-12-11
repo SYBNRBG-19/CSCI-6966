@@ -25,6 +25,7 @@ x86-vulnerability-checker/
 │   ├── Types.hs               # defines data structure for vulnerability
 │   ├── BinaryParser.hs        # Parses binaries and extracts instructions
 │   ├── CFGGenerator.hs        # Generates CFG from instructions
+│   ├── CFGPrinter.hs          # Prints CFG in a human-readable format
 │   ├── VulnerabilityScanner.hs # Scans CFG for vulnerabilities
 │   ├── FormatStringChecker.hs  # Detects format string vulnerabilities
 │   ├── StackIntegrityChecker.hs  # Detects stack integrity vulnerabilities
