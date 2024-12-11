@@ -19,7 +19,7 @@ main = do
       let vulnerabilities = scanForVulnerabilities cfg
       generateReport vulnerabilities
       putStrLn ""
-   --  _ -> putStrLn "Usage: x86-vulnerability-checker <binary-file>"
+    _ -> putStrLn "Usage: x86-vulnerability-checker <binary-file>"
 
 printInstruction :: Instruction -> IO ()
 printInstruction instr = do

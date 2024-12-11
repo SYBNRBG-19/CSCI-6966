@@ -3,8 +3,8 @@ module BinaryParser (parseBinary, Instruction(..), parseObjdumpOutput, isHexDigi
 import System.Process (readProcess)
 import Data.Maybe (mapMaybe)
 import Data.Char (toLower)
-import Data.List (isSuffixOf, findIndex, words, isPrefixOf)
-import Numeric (readHex, showHex)
+import Data.List (isSuffixOf, findIndex)
+import Numeric ()
 import Debug.Trace (trace)  -- Added import for trace
 
 data Instruction = Instruction
@@ -94,13 +94,13 @@ parseObjdumpOutput output = mapMaybe parseLine (lines output)
        where f = reverse . dropWhile (`elem` [' ', '\t'])
 
 -- Function to parse operand addresses (e.g., "0x2004") into Integer
-parseOperandAddress :: String -> Maybe Integer
-parseOperandAddress s =
-    let s' = takeWhile (\c -> isHexDigit c) s -- Extract characters that are hex digits
-        s'' = if "0x" `isPrefixOf` s' then drop 2 s' else s'
-    in case readHex s'' of
-        [(n, "")] -> Just n
-        _         -> Nothing
+-- parseOperandAddress :: String -> Maybe Integer
+-- parseOperandAddress s =
+--     let s' = takeWhile (\c -> isHexDigit c) s -- Extract characters that are hex digits
+--         s'' = if "0x" `isPrefixOf` s' then drop 2 s' else s'
+--     in case readHex s'' of
+--         [(n, "")] -> Just n
+--         _         -> Nothing
 
 -- Helper function to check if a character is a hexadecimal digit
 isHexDigit :: Char -> Bool

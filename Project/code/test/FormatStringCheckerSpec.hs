@@ -4,7 +4,7 @@ import Test.Hspec
 import CFGGenerator
 import Types
 import FormatStringChecker
-import BinaryParser (Instruction(..))
+import BinaryParser (Instruction(..), parseBinary)
 
 import qualified Data.Map as Map
 
@@ -32,6 +32,16 @@ spec = describe "FormatStringChecker" $ do
                 }
     let vulns = checkFormatStringVulnerabilities cfg
     vulns `shouldBe` []
+  
+  it "parses a binary file into instructions" $ do
+    instructions <- parseBinary "test-binaries/format_string.bin"
+    let cfg = generateCFG instructions
+    let vulns = checkFormatStringVulnerabilities cfg
+    vulns `shouldBe` [ Vulnerability
+                        { vulnType = "Format String Vulnerability"
+                        , description = "Possible format string vulnerability in call to printf"
+                        , location = "40104f"
+                        } ]
 
 -- Helper functions
 createTestCFG :: [Instruction] -> CFG

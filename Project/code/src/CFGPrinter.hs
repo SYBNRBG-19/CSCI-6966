@@ -2,7 +2,6 @@ module CFGPrinter (printCFG) where
 
 import BinaryParser (Instruction(..))
 import CFGGenerator (CFG(..), BasicBlock(..))
-import Data.Map (Map)
 import qualified Data.Map as Map
 
 printCFG :: CFG -> IO ()

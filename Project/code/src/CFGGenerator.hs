@@ -8,7 +8,6 @@ import qualified Data.Set as Set
 import Data.Maybe (mapMaybe, maybeToList)
 import Numeric (readHex, showHex)
 import Data.List (sort, isPrefixOf)
-import Data.Char (toLower)
 
 -- Data type for a Basic Block
 data BasicBlock = BasicBlock

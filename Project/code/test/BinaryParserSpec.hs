@@ -7,7 +7,7 @@ spec :: Spec
 spec = do
   describe "parseBinaryBase" $ do
     it "parses a binary file into instructions" $ do
-      instructions <- parseBinary "test-binaries/hello.bin"
+      instructions <- parseBinary "test-binaries/simple.bin"
       length instructions `shouldSatisfy` (> 0)
     
     it "handles invalid binary input gracefully" $ do
