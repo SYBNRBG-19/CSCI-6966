@@ -27,7 +27,7 @@ spec = do
                         , Instruction "2004" "c3"      "ret"  ""
                         ]
       let cfg = generateCFG instructions
-      -- Check that there are two basic blocks
+      -- Check that there are three basic blocks
       Map.size (cfgBlocks cfg) `shouldBe` 3
       -- Check edges
       let edges = cfgEdges cfg
