@@ -81,7 +81,8 @@ Example:
 cabal run x86-vulnerability-checker -- ./test-binaries/simple.bin
 ```
 
-This will output a report detailing any detected vulnerabilities in the specified binary.
+This will output a report detailing any detected vulnerabilities in the specified binary. 
+We have four testable binaries here: simple.bin, arithmetic.bin, format_string.bin and if_statement.bin. 
 
 ## Modules
 
